@@ -1,5 +1,5 @@
-llm-api-venv
 pdfs
+.llm-api-venv
 .env
 
 # Python
@@ -9,3 +9,4 @@ __pycache__
 *.pyd
 *.pyw
 *.pyz
+.DS_Store
