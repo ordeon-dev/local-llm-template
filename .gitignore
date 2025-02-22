@@ -1,3 +1,11 @@
 llm-api-venv
 pdfs
 .env
+
+# Python
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+*.pyw
+*.pyz
