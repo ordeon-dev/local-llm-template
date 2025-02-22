@@ -1,0 +1,43 @@
+services:
+    webui:
+        image: ghcr.io/open-webui/open-webui:main
+        container_name: webui
+        ports:
+            - 7001:8080/tcp
+        volumes:
+            - open-webui:/app/backend/data
+        extra_hosts:
+            - 'host.docker.internal:host-gateway'
+        depends_on:
+            - ollama
+        restart: unless-stopped
+
+    ollama:
+        image: ollama/ollama
+        container_name: ollama
+        expose:
+            - 11434/tcp
+        ports:
+            - 11434:11434/tcp
+        healthcheck:
+            test: ollama --version || exit 1
+        volumes:
+            - ollama:/root/.ollama
+        restart: unless-stopped
+
+    api:
+        build: .
+        container_name: ollama-api
+        ports:
+            - 8000:8000
+        depends_on:
+            - ollama
+        volumes:
+            - .:/app
+        environment:
+            - OLLAMA_HOST=http://ollama:11434
+        restart: unless-stopped
+
+volumes:
+    ollama:
+    open-webui:
