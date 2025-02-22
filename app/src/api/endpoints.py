@@ -14,10 +14,7 @@ def health_check():
 async def query_model(payload: QueryModel):
     try:
         response = await query_ollama(
-            f"""
-                Extraia APENAS o valor total do seguinte texto. Responda SOMENTE o número formatado como float. 
-                Texto: {payload.prompt}
-                Resposta:
+            f"""Extraia APENAS o valor total do seguinte texto. Responda SOMENTE o valor total. Texto: {payload.prompt} Resposta:
             """
         )
         return {"response": response}

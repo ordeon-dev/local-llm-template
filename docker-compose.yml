@@ -14,6 +14,11 @@ services:
 
     ollama:
         build: ollama
+        deploy:
+            resources:
+                limits:
+                    memory: 12g
+        container_name: ollama
         ports:
             - 11434:11434
         environment:
@@ -34,7 +39,7 @@ services:
             - ./app:/app
         environment:
             - OLLAMA_HOST=http://ollama:11434
-            - OLLAMA_MODEL=stablelm2
+            - OLLAMA_MODEL=phi4
         restart: unless-stopped
 
 volumes:

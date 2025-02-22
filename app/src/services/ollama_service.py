@@ -9,17 +9,14 @@ from functools import lru_cache
 async def query_ollama(prompt: str) -> str:
     async with httpx.AsyncClient(timeout=300) as client:
         payload = {
-            "model": OLLAMA_MODEL,
-            "options": {
-                "temperature": 0.1, 
-                "num_ctx": 512 
-            },
+            "model": "phi4",
             "messages": [
                 {"role": "user", "content": prompt}
             ],
             "stream": False
         }
-        response = await client.post(f"{OLLAMA_HOST}/api/generate", json=payload)
+        print(payload)
+        response = await client.post(f"{OLLAMA_HOST}/api/chat", json=payload)
         print(response)
         response_data = response.json()
         return response_data.get("message", {}).get("content", "Erro ao obter resposta")
